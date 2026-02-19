@@ -66,3 +66,7 @@ São 4 departamentos: Engenharia, Compras, TI Interno e Infraestrutura.
 
 
 * Os departamentos de Engenharia e T.I. Interno devem ser colocados IPs estáticos, já nos departamentos de compras e Infraestrutura devem ser colocados IPs dinâmicos, de maneira que siga a sequência dos IPs estáticos.
+
+
+<img width="1883" height="657" alt="image" src="https://github.com/user-attachments/assets/49753088-c755-452c-bb55-37764dc00f74" />
+

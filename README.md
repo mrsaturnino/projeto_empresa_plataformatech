@@ -1,72 +1,49 @@
-Utilizando o CISCO PACKET TRACER você vai criar a rede lógica com as seguintes informações:
+# Projeto de Infraestrutura de Rede Lógica: PlataformaTech
 
+Este projeto detalha a implementação de uma rede local (LAN) para a empresa **PlataformaTech**, desenvolvida no simulador **Cisco Packet Tracer**. O objetivo foi estruturar uma rede segmentada em topologia estrela de Classe C para atender a quatro departamentos distintos com requisitos específicos de endereçamento e segurança.
 
-A empresa Super Tech, precisa criar a estrutura de sua rede de computadores, de maneira que atenda as seguintes necessidades.
+## 1. Escopo do Projeto
 
+A rede foi projetada para suportar os seguintes departamentos:
+* **Engenharia**: 24 hosts (20 estações, 2 servidores, 2 impressoras);
+* **Compras**: 24 hosts (20 estações, 2 servidores, 2 impressoras);
+* **TI Interno**: 24 hosts (20 estações, 2 servidores, 2 impressoras);
+* **Infraestrutura**: 24 hosts (20 estações, 2 servidores, 2 impressoras).
 
+### Hardware Utilizado
+* **Switches**: 04 x Cisco 2950-24 (um por departamento);
+* **Hosts**: Estações de trabalho, Servidores e Impressoras de rede.
 
-São 4 departamentos: Engenharia, Compras, TI Interno e Infraestrutura. 
+> **Nota Técnica**: Para realizar a interconexão (Uplink) entre os departamentos, foi configurada uma porta de tronco em cada switch, otimizando a comunicação entre as sub-redes.
 
+## 2. Planejamento de Endereçamento IP
 
+Para otimizar o uso dos endereços e suportar os 24 hosts por segmento, foi utilizada a máscara de sub-rede **CIDR /27** (255.255.255.224), que permite até 30 endereços válidos por sub-rede.
 
-* Cada departamento deve conter: 20 estações, 2 servidores e 2 impressoras, totalizando 24 hosts. 
-
-
-
-* Deve ser usada uma máscara de sub-rede que atenda a necessidade apresentada. 
-
-
-
-* A rede é de Classe C e deve-se usar a topologia estrela. 
-
-
-
-* Para a numeração IPs, deve-se usar uma sequência nas sub-redes de acordo com a máscara adotada. 
-
-
-
-* Como são 24 hosts em cada sub-rede, devemos usar uma máscara que permita está configuração: neste caso a rede seria de /27, o host de 24.
-
-  *máscara padrão: 255.255.255.22*
-  *máscara CIDR: /27*
+| Departamento | Rede | 1º IP Válido | Último IP Válido | Broadcast | Atribuição |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Engenharia** | 192.168.0.0 | 192.168.0.1 | 192.168.0.30 | 192.168.0.31 | Estático |
+| **Compras** | 192.168.0.32 | 192.168.0.33 | 192.168.0.62 | 192.168.0.63 | Dinâmico |
+| **TI Interno** | 192.168.0.64 | 192.168.0.65 | 192.168.0.94 | 192.168.0.95 | Estático |
+| **Infraestrutura** | 192.168.0.96 | 192.168.0.97 | 192.168.0.126 | 192.168.0.127 | Dinâmico |
 
 
 
-* Descreva a rede, seu 1º IP válido, ultimo IP valido e o broadcast de cada Sub-Rede.
+## 3. Segmentação com VLANs
+
+Cada departamento possui segmentação interna via VLANs para reduzir o domínio de broadcast e aumentar a segurança da rede:
+
+* **VLAN 1 (Portas 1-12)**: 10 estações, 1 servidor e 1 impressora;
+* **VLAN 2 (Portas 13-24)**: 10 estações, 1 servidor e 1 impressora.
 
 
 
-|*REDE*|*HOSTS*|*BROADCAST*|
-|-|-|-|
-|*192.168.0.0*|*.1 ao .30*|*192.168.0.31*|
-|*192.168.0.32*|*.33 ao .62*|*192.168.0.63*|
-|*192.168.0.64*|*.63 ao .94*|*192.168.0.95*|
-|*192.168.0.96*|*.95 ao .126*|*192.168.0.127*|
+## 4. Tecnologias e Habilidades Aplicadas
 
+* **Simulação de Redes**: Cisco Packet Tracer;
+* **Protocolos**: TCP/IP, Ethernet, VLAN (802.1Q), Trunking;
+* **Serviços de Rede**: Configuração de DHCP e DNS;
+* **Troubleshooting**: Diagnóstico de conectividade e segmentação lógica.
 
-
-
-
-* Utilize o switch 2950-24 da Cisco para cada departamento, interligando eles entre si.
-
-  *Nota: para interligar os departamentos da forma mais fácil e objetiva, foi necessário remover um dos computadores para ter uma porta sobrando, visto que, seguindo o enunciado, não haveria portas sobrando para conectar mais um switch (que foi utilizado para interligar as redes existentes).*
-
-
-
-* Cada departamento deve estar em uma sub-rede. Configure uma Vlan nas subs-rede. 
-
-
-
-* Configure uma VLAN nas sub-redes. Em cada Sub-rede crie 2 vlans com 12 portas cada. Da 1-12 VLAN1 e da 13 a 24 VLAN2. Cada VLAN vai ter 10 estações, 1 impressora e um Servidor.
-
-
-
-* Os departamentos são: Engenharia, Compras, T.I. Interno e Infraestrutura.
-
-
-
-* Os departamentos de Engenharia e T.I. Interno devem ser colocados IPs estáticos, já nos departamentos de compras e Infraestrutura devem ser colocados IPs dinâmicos, de maneira que siga a sequência dos IPs estáticos.
-
-
-<img width="1883" height="657" alt="image" src="https://github.com/user-attachments/assets/49753088-c755-452c-bb55-37764dc00f74" />
-
+---
+*Projeto desenvolvido como parte do aprimoramento contínuo em Infraestrutura e Redes.*
